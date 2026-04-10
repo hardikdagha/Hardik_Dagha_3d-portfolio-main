@@ -1,0 +1,78 @@
+.icons-section {
+  position: fixed;
+  max-width: var(--cMaxWidth);
+  width: var(--cWidth);
+  bottom: 0;
+  z-index: 99;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.resume-button {
+  position: absolute;
+  z-index: 99;
+  display: flex;
+  gap: 5px;
+  bottom: 34px;
+  right: 0;
+  width: auto;
+  text-wrap: nowrap;
+  letter-spacing: 0.16em;
+  font-size: 15px;
+  line-height: 15px;
+  font-weight: 600;
+  color: #b6ccc0;
+  cursor: pointer;
+  transition: 0.3s;
+  transform-origin: left bottom;
+  transform: translateX(100%) rotateZ(-90deg);
+  border: 1px solid var(--borderColor);
+  background: rgba(10, 20, 29, 0.78);
+  border-radius: 999px;
+  padding: 10px 16px;
+  backdrop-filter: blur(14px);
+}
+
+.resume-button:hover {
+  color: #fff;
+  border-color: rgba(126, 245, 200, 0.44);
+}
+
+div.resume-button span {
+  color: #fff;
+  font-size: 17px;
+  margin-top: -1px;
+  display: flex;
+  align-items: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .resume-button {
+    position: fixed;
+    right: 14px;
+    bottom: 18px;
+    transform: none;
+    font-size: 13px;
+    line-height: 13px;
+    padding: 12px 14px;
+    gap: 8px;
+  }
+
+  div.resume-button span {
+    font-size: 18px;
+    margin-top: 0;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .resume-button {
+    transform: none;
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  div.resume-button span {
+    font-size: 20px;
+    margin-top: -1.5px;
+  }
+}
