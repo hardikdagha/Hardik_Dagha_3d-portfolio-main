@@ -75,7 +75,12 @@ const setCharacter = (
         async (gltf) => {
           try {
             const character = gltf.scene;
-            await renderer.compileAsync(character, camera, scene);
+            try {
+              await renderer.compileAsync(character, camera, scene);
+            } catch (error) {
+              console.warn("Pre-compile skipped due renderer limitations.", error);
+            }
+
             character.traverse((child) => {
               if (!(child instanceof THREE.Mesh)) return;
 

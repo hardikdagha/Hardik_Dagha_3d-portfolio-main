@@ -22,17 +22,32 @@ const Scene = () => {
   useEffect(() => {
     if (canvasDiv.current) {
       const canvasElement = canvasDiv.current;
-      const rect = canvasElement.getBoundingClientRect();
-      const container = { width: rect.width, height: rect.height };
+      const getContainerSize = () => {
+        const rect = canvasElement.getBoundingClientRect();
+        return {
+          width: Math.max(1, Math.round(rect.width || canvasElement.clientWidth || window.innerWidth)),
+          height: Math.max(
+            1,
+            Math.round(
+              rect.height ||
+                canvasElement.clientHeight ||
+                Math.max(300, window.innerHeight * 0.82)
+            )
+          ),
+        };
+      };
+
+      const container = getContainerSize();
       const aspect = container.width / container.height;
       const scene = sceneRef.current;
 
       const renderer = new THREE.WebGLRenderer({
         alpha: true,
         antialias: true,
+        powerPreference: "high-performance",
       });
-      renderer.setSize(container.width, container.height);
-      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(container.width, container.height, false);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1;
       canvasElement.appendChild(renderer.domElement);
@@ -84,8 +99,15 @@ const Scene = () => {
 
       const resizeHandler = () => {
         if (loadedCharacter) {
-          handleResize(renderer, camera, canvasDiv, loadedCharacter);
+          handleResize(renderer, camera, canvasDiv);
+          return;
         }
+
+        const { width, height } = getContainerSize();
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+        renderer.setSize(width, height, false);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
       };
 
       loadCharacter()
@@ -152,8 +174,10 @@ const Scene = () => {
         landingDiv.addEventListener("touchstart", onTouchStart);
         landingDiv.addEventListener("touchend", onTouchEnd);
       }
+
+      let animationFrameId = 0;
       const animate = () => {
-        requestAnimationFrame(animate);
+        animationFrameId = requestAnimationFrame(animate);
         if (headBone) {
           handleHeadRotation(
             headBone,
@@ -173,6 +197,9 @@ const Scene = () => {
       };
       animate();
       return () => {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
         window.clearTimeout(loadingTimeout);
         progress.dispose();
         clearTimeout(debounce);

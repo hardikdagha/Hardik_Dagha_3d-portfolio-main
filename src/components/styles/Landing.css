@@ -91,6 +91,12 @@
   position: relative;
 }
 
+.character-container {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
 .character-rim {
   position: absolute;
   width: 460px;
@@ -362,6 +368,7 @@ h2.landing-info-h2 {
 
   .character-container {
     position: relative;
+    inset: auto;
     z-index: 2;
   }
 

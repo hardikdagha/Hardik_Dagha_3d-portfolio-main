@@ -183,7 +183,7 @@ const TechStack = () => {
       <Canvas
         camera={{ position: [0, 0.5, 15], fov: 34, near: 0.1, far: 100 }}
         className="tech-canvas"
-        dpr={[1, 1.8]}
+        dpr={[1, 1.4]}
       >
         <color attach="background" args={["#050c12"]} />
         <fog attach="fog" args={["#050c12", 18, 28]} />

@@ -18,27 +18,40 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   );
 
   useEffect(() => {
+    let rafId: number | undefined;
+
     const resizeHandler = () => {
-      setSplitText();
-      setIsDesktopView(window.innerWidth > 1024);
+      if (rafId !== undefined) {
+        window.cancelAnimationFrame(rafId);
+      }
+
+      rafId = window.requestAnimationFrame(() => {
+        setSplitText();
+        const nextDesktop = window.innerWidth > 1024;
+        setIsDesktopView((prev) => (prev === nextDesktop ? prev : nextDesktop));
+      });
     };
+
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
+
     return () => {
+      if (rafId !== undefined) {
+        window.cancelAnimationFrame(rafId);
+      }
       window.removeEventListener("resize", resizeHandler);
     };
-  }, [isDesktopView]);
+  }, []);
 
   return (
     <div className="container-main">
       <Cursor />
       <Navbar />
       <SocialIcons />
-      {isDesktopView && children}
       <div id="smooth-wrapper">
         <div id="smooth-content">
           <div className="container-main">
-            <Landing>{!isDesktopView && children}</Landing>
+            <Landing>{children}</Landing>
             <About />
             <WhatIDo />
             <Career />
