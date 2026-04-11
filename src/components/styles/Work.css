@@ -38,8 +38,6 @@
 .carousel-track-container {
   overflow: hidden;
   width: 100%;
-  padding: 0 clamp(14px, 2.2vw, 32px);
-  box-sizing: border-box;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -55,22 +53,19 @@
   flex-shrink: 0;
   box-sizing: border-box;
   padding: 56px 0;
-  overflow: hidden;
 }
 
 .carousel-content {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
-  align-items: center;
-  gap: clamp(24px, 3vw, 42px);
   width: 100%;
-  padding: 0;
+  padding: 0 clamp(36px, 5vw, 96px);
   box-sizing: border-box;
 }
 
 .carousel-info {
-  max-width: none;
-  display: flex;
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 30px;
   align-items: flex-start;
   min-width: 0;
@@ -138,16 +133,6 @@
   overflow-wrap: anywhere;
 }
 
-.carousel-image-wrapper {
-  width: 100%;
-  max-width: 360px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 0;
-  justify-self: center;
-}
-
 .carousel-arrow {
   position: absolute;
   top: 50%;
@@ -212,146 +197,7 @@
   box-shadow: 0 0 8px rgba(126, 245, 200, 0.4);
 }
 
-.work-image {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
-.work-image-in {
-  display: block;
-  position: relative;
-  width: 100%;
-  min-height: 360px;
-  border-radius: 28px;
-  border: 1px solid var(--borderColor);
-  background: linear-gradient(180deg, rgba(12, 23, 34, 0.94), rgba(8, 16, 24, 0.82));
-  overflow: hidden;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
-  transition: transform 0.35s ease, border-color 0.35s ease;
-}
-
-.work-image-in:hover {
-  transform: translateY(-6px);
-  border-color: rgba(126, 245, 200, 0.42);
-}
-
-.work-link {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  background-color: rgba(255, 255, 255, 0.06);
-  width: 50px;
-  border-radius: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 25px;
-  box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.08),
-    inset 0px 0px 10px 0px rgba(255, 255, 255, 0.05);
-  transition: 0.3s;
-  opacity: 0;
-}
-
-.work-image a:hover {
-  color: inherit;
-}
-
-.work-image a:hover .work-link {
-  opacity: 1;
-}
-
-.work-visual {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 10% 10%, rgba(126, 245, 200, 0.08), transparent 28%),
-    linear-gradient(180deg, rgba(126, 245, 200, 0.04), rgba(0, 0, 0, 0));
-}
-
-.work-visual::before {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  pointer-events: none;
-}
-
-.work-visual-top {
-  display: flex;
-  gap: 8px;
-  padding: 18px 22px 0;
-}
-
-.work-visual-top span {
-  width: 11px;
-  height: 11px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.work-visual-top span:first-child {
-  background: #ff7b72;
-}
-
-.work-visual-top span:nth-child(2) {
-  background: #ffd866;
-}
-
-.work-visual-top span:last-child {
-  background: #78f7c1;
-}
-
-.work-visual-body {
-  padding: 36px 28px 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  min-width: 0;
-}
-
-.work-visual-body p {
-  margin: 0;
-  color: var(--accentColor);
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.work-visual-body h5 {
-  margin: 0;
-  font-size: 34px;
-  line-height: 1.05;
-  font-weight: 600;
-}
-
-.work-visual-body ul {
-  margin: 0;
-  padding-left: 18px;
-  color: var(--mutedColor);
-  display: grid;
-  gap: 10px;
-  font-size: 15px;
-  line-height: 1.7;
-  width: 100%;
-  min-width: 0;
-}
-
-.work-visual-body li {
-  width: 100%;
-  min-width: 0;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
 @media only screen and (max-width: 1600px) {
-  .carousel-content {
-    grid-template-columns: minmax(0, 1fr) minmax(270px, 340px);
-  }
-
   .carousel-arrow-left {
     left: -60px;
   }
@@ -375,16 +221,7 @@
   }
 
   .carousel-content {
-    grid-template-columns: minmax(0, 1fr) minmax(250px, 320px);
-    gap: 24px;
-  }
-
-  .carousel-image-wrapper {
-    max-width: 320px;
-  }
-
-  .work-image-in {
-    min-height: 320px;
+    padding: 0 54px;
   }
 
   .carousel-arrow-left {
@@ -398,24 +235,14 @@
 
 @media only screen and (max-width: 1025px) {
   .carousel-content {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    align-items: stretch;
-    padding: 0;
+    padding: 0 18px;
   }
 
   .carousel-info {
     width: 100%;
     max-width: 100%;
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 16px;
-  }
-
-  .carousel-image-wrapper {
-    width: 100%;
-    max-width: 100%;
-    justify-self: auto;
   }
 
   .carousel-arrow {
@@ -443,9 +270,7 @@
   .carousel-slide,
   .carousel-content,
   .carousel-info,
-  .carousel-details,
-  .carousel-image-wrapper,
-  .work-image {
+  .carousel-details {
     width: 100%;
     max-width: 100%;
     min-width: 0;
@@ -470,22 +295,8 @@
     font-size: 20px;
   }
 
-  .carousel-content {
-    gap: 20px;
-  }
-
   .carousel-slide {
     padding: 26px 0;
-  }
-
-  .work-image-in {
-    width: 100%;
-    min-height: 280px;
-    max-width: none;
-  }
-
-  .work-visual-body h5 {
-    font-size: 28px;
   }
 
   .carousel-category,
@@ -530,34 +341,7 @@
     margin-top: 10px;
   }
 
-  .work-image-in {
-    min-height: 240px;
-    border-radius: 22px;
-  }
-
-  .work-visual::before {
-    inset: 14px;
-    border-radius: 18px;
-  }
-
-  .work-visual-body {
-    padding: 24px 20px 20px;
-    gap: 12px;
-  }
-
-  .work-visual-body h5 {
-    font-size: 22px;
-    overflow-wrap: anywhere;
-  }
-
-  .work-visual-body ul {
-    font-size: 14px;
-    line-height: 1.6;
-    padding-left: 16px;
-  }
-
-  .work-visual-body li {
-    overflow-wrap: anywhere;
-    word-break: break-word;
+  .carousel-content {
+    padding: 0 6px;
   }
 }

@@ -1,6 +1,5 @@
 import { useState, useCallback } from "react";
 import "./styles/Work.css";
-import WorkImage from "./WorkImage";
 import { MdArrowBack, MdArrowForward } from "react-icons/md";
 import { profile } from "../data/profile";
 
@@ -87,18 +86,6 @@ const Work = () => {
                           <p>{project.tools}</p>
                         </div>
                       </div>
-                    </div>
-                    <div className="carousel-image-wrapper">
-                      <WorkImage
-                        title={project.title}
-                        label={project.visualLabel}
-                        highlights={project.highlights}
-                        link={
-                          "link" in project
-                            ? (project.link as string | undefined)
-                            : undefined
-                        }
-                      />
                     </div>
                   </div>
                 </div>
