@@ -43,14 +43,19 @@ const Scene = () => {
 
       const renderer = new THREE.WebGLRenderer({
         alpha: true,
+        premultipliedAlpha: false,
         antialias: true,
         powerPreference: "high-performance",
       });
+      renderer.setClearColor(0x000000, 0);
+      renderer.setClearAlpha(0);
       renderer.setSize(container.width, container.height, false);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1;
+      renderer.domElement.style.backgroundColor = "transparent";
       canvasElement.appendChild(renderer.domElement);
+      scene.background = null;
 
       const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
       camera.position.z = 10;

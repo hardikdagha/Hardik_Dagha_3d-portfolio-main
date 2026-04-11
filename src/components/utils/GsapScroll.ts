@@ -2,6 +2,11 @@ import * as THREE from "three";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+const getMeshStandardMaterial = (mesh: THREE.Mesh) => {
+  const material = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
+  return material instanceof THREE.MeshStandardMaterial ? material : null;
+};
+
 export function setCharTimeline(
   character: THREE.Object3D<THREE.Object3DEventMap> | null,
   camera: THREE.PerspectiveCamera
@@ -40,38 +45,52 @@ export function setCharTimeline(
       invalidateOnRefresh: true,
     },
   });
-  let screenLight: any, monitor: any;
-  character?.children.forEach((object: any) => {
+  let screenLightMaterial: THREE.MeshStandardMaterial | null = null;
+  let monitorMaterial: THREE.MeshStandardMaterial | null = null;
+  let monitorMesh: THREE.Mesh | null = null;
+
+  for (const object of character?.children ?? []) {
     if (object.name === "Plane004") {
-      object.children.forEach((child: any) => {
-        child.material.transparent = true;
-        child.material.opacity = 0;
-        if (child.material.name === "Material.018") {
-          monitor = child;
-          child.material.color.set("#FFFFFF");
+      for (const child of object.children) {
+        if (!(child instanceof THREE.Mesh)) continue;
+
+        const material = getMeshStandardMaterial(child);
+        if (!material) continue;
+
+        material.transparent = true;
+        material.opacity = 0;
+        if (material.name === "Material.018") {
+          monitorMesh = child;
+          monitorMaterial = material;
+          material.color.set("#FFFFFF");
         }
-      });
+      }
     }
-    if (object.name === "screenlight") {
-      object.material.transparent = true;
-      object.material.opacity = 0;
-      object.material.emissive.set("#B0F5EA");
-      gsap.killTweensOf(object.material);
-      gsap.timeline({ repeat: -1, repeatRefresh: true }).to(object.material, {
+
+    if (object.name === "screenlight" && object instanceof THREE.Mesh) {
+      const material = getMeshStandardMaterial(object);
+      if (!material) continue;
+
+      material.transparent = true;
+      material.opacity = 0;
+      material.emissive.set("#B0F5EA");
+      gsap.killTweensOf(material);
+      gsap.timeline({ repeat: -1, repeatRefresh: true }).to(material, {
         emissiveIntensity: () => Math.random() * 8,
         duration: () => Math.random() * 0.6,
         delay: () => Math.random() * 0.1,
       });
-      screenLight = object;
+      screenLightMaterial = material;
     }
-  });
-  let neckBone = character?.getObjectByName("spine005");
+  }
+  const neckBone = character?.getObjectByName("spine005");
   if (window.innerWidth > 1024) {
     if (character) {
       tl1
         .fromTo(character.rotation, { y: 0 }, { y: 0.7, duration: 1 }, 0)
         .to(camera.position, { z: 22 }, 0)
         .fromTo(".character-model", { x: 0 }, { x: "-25%", duration: 1 }, 0)
+        .fromTo(".character-container", { opacity: 1 }, { opacity: 0.2, duration: 1 }, 0)
         .to(".landing-container", { opacity: 0, duration: 0.4 }, 0)
         .to(".landing-container", { y: "40%", duration: 0.8 }, 0)
         .fromTo(".about-me", { y: "-50%" }, { y: "0%" }, 0);
@@ -91,19 +110,11 @@ export function setCharTimeline(
           0
         )
         .to(character.rotation, { y: 0.92, x: 0.12, delay: 3, duration: 3 }, 0)
-        .to(neckBone!.rotation, { x: 0.6, delay: 2, duration: 3 }, 0)
-        .to(monitor.material, { opacity: 1, duration: 0.8, delay: 3.2 }, 0)
-        .to(screenLight.material, { opacity: 1, duration: 0.8, delay: 4.5 }, 0)
+        .to(".character-container", { opacity: 0, duration: 1.4 }, 0)
         .fromTo(
           ".what-box-in",
           { display: "none" },
           { display: "flex", duration: 0.1, delay: 6 },
-          0
-        )
-        .fromTo(
-          monitor.position,
-          { y: -10, z: 2 },
-          { y: 0, z: 0, delay: 1.5, duration: 3 },
           0
         )
         .fromTo(
@@ -112,6 +123,27 @@ export function setCharTimeline(
           { opacity: 0, scale: 0, y: "-70%", duration: 5, delay: 2 },
           0.3
         );
+
+      if (neckBone) {
+        tl2.to(neckBone.rotation, { x: 0.6, delay: 2, duration: 3 }, 0);
+      }
+
+      if (monitorMaterial) {
+        tl2.to(monitorMaterial, { opacity: 1, duration: 0.8, delay: 3.2 }, 0);
+      }
+
+      if (screenLightMaterial) {
+        tl2.to(screenLightMaterial, { opacity: 1, duration: 0.8, delay: 4.5 }, 0);
+      }
+
+      if (monitorMesh) {
+        tl2.fromTo(
+          monitorMesh.position,
+          { y: -10, z: 2 },
+          { y: 0, z: 0, delay: 1.5, duration: 3 },
+          0
+        );
+      }
 
       tl3
         .fromTo(

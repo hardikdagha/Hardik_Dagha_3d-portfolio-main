@@ -4,6 +4,7 @@
   margin: auto;
   position: relative;
   height: var(--vh);
+  overflow: hidden;
 }
 
 .landing-container {
@@ -95,6 +96,7 @@
   position: absolute;
   inset: 0;
   z-index: 2;
+  overflow: hidden;
 }
 
 .character-rim {
@@ -137,20 +139,13 @@
   bottom: -50px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9;
+  z-index: 1;
   position: absolute;
+  pointer-events: none;
 }
 
 .character-model::before {
-  content: "";
-  width: 100vw;
-  height: 700px;
-  background-color: var(--backgroundColor);
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9;
-  position: absolute;
+  content: none;
 }
 
 .character-loaded .character-rim {
@@ -161,6 +156,10 @@
 
 .character-model canvas {
   position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: transparent !important;
   pointer-events: none;
   z-index: 2;
 }

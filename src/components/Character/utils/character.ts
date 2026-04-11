@@ -111,6 +111,12 @@ const setCharacter = (
             character.getObjectByName("footR")!.position.y = 3.36;
             character.getObjectByName("footL")!.position.y = 3.36;
 
+            // Keep the hero framing centered and avoid oversized close-up on desktop.
+            if (window.innerWidth > 1024) {
+              character.position.set(-2.2, -0.4, 0);
+              character.scale.setScalar(0.9);
+            }
+
             // Monitor scale is handled by GsapScroll.ts animations
             succeed(gltf);
           } catch (error) {
