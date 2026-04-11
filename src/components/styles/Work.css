@@ -57,16 +57,17 @@
 }
 
 .carousel-content {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 430px);
   align-items: center;
-  justify-content: space-between;
-  gap: 60px;
+  gap: clamp(32px, 4vw, 60px);
   width: 100%;
+  padding: 0 28px 0 18px;
+  box-sizing: border-box;
 }
 
 .carousel-info {
-  flex: 1 1 56%;
-  max-width: 56%;
+  max-width: none;
   display: flex;
   gap: 30px;
   align-items: flex-start;
@@ -136,13 +137,13 @@
 }
 
 .carousel-image-wrapper {
-  flex: 0 1 460px;
-  max-width: 460px;
+  width: 100%;
+  max-width: 430px;
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 0;
-  margin-left: auto;
+  justify-self: end;
 }
 
 .carousel-arrow {
@@ -218,7 +219,7 @@
 .work-image-in {
   display: block;
   position: relative;
-  width: min(100%, 460px);
+  width: 100%;
   min-height: 360px;
   border-radius: 28px;
   border: 1px solid var(--borderColor);
@@ -306,6 +307,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-width: 0;
 }
 
 .work-visual-body p {
@@ -332,10 +334,12 @@
   gap: 10px;
   font-size: 15px;
   line-height: 1.7;
+  width: 100%;
   min-width: 0;
 }
 
 .work-visual-body li {
+  width: 100%;
   min-width: 0;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -343,16 +347,8 @@
 
 @media only screen and (max-width: 1600px) {
   .carousel-content {
-    gap: 48px;
-  }
-
-  .carousel-image-wrapper {
-    flex-basis: 430px;
-    max-width: 430px;
-  }
-
-  .work-image-in {
-    width: min(100%, 430px);
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 410px);
+    padding-right: 18px;
   }
 
   .carousel-arrow-left {
@@ -378,21 +374,16 @@
   }
 
   .carousel-content {
-    gap: 40px;
-  }
-
-  .carousel-info {
-    flex-basis: 58%;
-    max-width: 58%;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+    gap: 32px;
+    padding-right: 10px;
   }
 
   .carousel-image-wrapper {
-    flex-basis: 390px;
-    max-width: 390px;
+    max-width: 380px;
   }
 
   .work-image-in {
-    width: min(100%, 390px);
     min-height: 340px;
   }
 
@@ -407,9 +398,11 @@
 
 @media only screen and (max-width: 1025px) {
   .carousel-content {
+    display: flex;
     flex-direction: column;
     gap: 30px;
     align-items: stretch;
+    padding: 0;
   }
 
   .carousel-info {
@@ -422,6 +415,7 @@
   .carousel-image-wrapper {
     width: 100%;
     max-width: 100%;
+    justify-self: auto;
   }
 
   .carousel-arrow {

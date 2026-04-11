@@ -155,7 +155,7 @@ export const profile = {
       highlights: [
         "Initial access and privilege escalation path documented",
         "Post-exploitation analysis completed",
-        "Remediation recommendations tied to practical risk",
+        "Remediation guidance tied to real risk",
       ],
     },
     {
