@@ -99,7 +99,7 @@ export function setCharTimeline(
     if (character && tl1 && tl2 && tl3) {
       tl1
         .fromTo(character.rotation, { y: 0 }, { y: 0.35, duration: 1 }, 0)
-        .to(camera.position, { z: 23.8, duration: 1 }, 0)
+        .to(camera.position, { z: 25.4, duration: 1 }, 0)
         .to(".landing-container", { opacity: 0.35, duration: 1 }, 0)
         .fromTo(".about-me", { y: "-30%" }, { y: "0%", duration: 1 }, 0);
 

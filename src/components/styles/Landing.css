@@ -115,15 +115,15 @@
 }
 
 .character-model {
-  height: 82vh;
+  height: clamp(520px, 74vh, 760px);
   position: absolute;
-  max-width: 1920px;
+  max-width: 1120px;
   max-height: 1080px;
   transform: translateX(-50%);
-  width: 100%;
+  width: min(74vw, 1120px);
   left: 50%;
   z-index: 0;
-  bottom: 20px;
+  bottom: 8px;
   pointer-events: inherit;
 }
 
@@ -377,9 +377,9 @@ h2.landing-info-h2 {
     bottom: auto;
     transform: none;
     width: 100%;
-    height: clamp(260px, 38vh, 420px);
+    height: clamp(250px, 34vh, 340px);
     max-height: none;
-    margin-top: 16px;
+    margin-top: 18px;
   }
 
   .character-model::before {
@@ -408,8 +408,8 @@ h2.landing-info-h2 {
   }
 
   .character-model {
-    height: clamp(220px, 32vh, 320px);
-    margin-top: 20px;
+    height: clamp(240px, 30vh, 320px);
+    margin-top: 18px;
   }
 }
 
@@ -460,8 +460,8 @@ h2.landing-info-h2 {
   }
 
   .character-model {
-    height: clamp(180px, 26vh, 240px);
-    margin-top: 24px;
+    height: clamp(230px, 29vh, 290px);
+    margin-top: 16px;
   }
 
   .character-hover {

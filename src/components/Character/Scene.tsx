@@ -1,8 +1,12 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import setCharacter from "./utils/character";
+import setCharacter, { applyCharacterLayout } from "./utils/character";
 import setLighting from "./utils/lighting";
 import { useLoading } from "../../context/LoadingProvider";
+import {
+  applyHeroCameraFraming,
+  getCharacterPixelRatioCap,
+} from "./utils/resizeUtils";
 import handleResize from "./utils/resizeUtils";
 import {
   handleMouseMove,
@@ -42,39 +46,13 @@ const Scene = () => {
       const scene = sceneRef.current;
       const getPreferredPixelRatio = () => {
         const ratio = window.devicePixelRatio || 1;
-        if (window.innerWidth <= 600) {
-          return Math.min(ratio, 1.2);
-        }
-        if (window.innerWidth <= 900) {
-          return Math.min(ratio, 1.15);
-        }
-        return Math.min(ratio, 1.35);
-      };
-      const applyCameraFraming = (camera: THREE.PerspectiveCamera) => {
-        const width = window.innerWidth;
-
-        if (width > 1400) {
-          camera.position.set(0, 13.1, 25.6);
-          camera.zoom = 1;
-        } else if (width > 1200) {
-          camera.position.set(0, 13.1, 25.2);
-          camera.zoom = 1.02;
-        } else if (width > 1024) {
-          camera.position.set(0, 13.1, 24.9);
-          camera.zoom = 1.03;
-        } else if (width > 600) {
-          camera.position.set(0, 13.15, 24.7);
-          camera.zoom = 1.05;
-        } else {
-          camera.position.set(0, 13.2, 24.75);
-          camera.zoom = 1.05;
-        }
+        return Math.min(ratio, getCharacterPixelRatioCap(window.innerWidth));
       };
 
       const renderer = new THREE.WebGLRenderer({
         alpha: true,
         premultipliedAlpha: false,
-        antialias: window.innerWidth > 1024,
+        antialias: window.innerWidth > 900,
         powerPreference: "high-performance",
       });
       renderer.setClearColor(0x000000, 0);
@@ -88,7 +66,7 @@ const Scene = () => {
       scene.background = null;
 
       const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
-      applyCameraFraming(camera);
+      applyHeroCameraFraming(camera);
       camera.updateProjectionMatrix();
 
       let headBone: THREE.Object3D | null = null;
@@ -132,7 +110,8 @@ const Scene = () => {
 
       const resizeHandler = () => {
         if (loadedCharacter) {
-          handleResize(renderer, camera, canvasDiv);
+          handleResize(renderer, camera, canvasDiv, applyHeroCameraFraming);
+          applyCharacterLayout(loadedCharacter);
           return;
         }
 
@@ -140,7 +119,7 @@ const Scene = () => {
         renderer.setPixelRatio(getPreferredPixelRatio());
         renderer.setSize(width, height, false);
         camera.aspect = width / height;
-        applyCameraFraming(camera);
+        applyHeroCameraFraming(camera);
         camera.updateProjectionMatrix();
       };
 

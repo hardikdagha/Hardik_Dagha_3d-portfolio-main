@@ -4,6 +4,31 @@ import { setCharTimeline, setAllTimeline } from "../../utils/GsapScroll";
 import { decryptFile } from "./decrypt";
 import { publicAssetUrl } from "../../../utils/publicAsset";
 
+export const applyCharacterLayout = (
+  character: THREE.Object3D,
+  width: number = window.innerWidth
+) => {
+  if (width > 1400) {
+    character.position.set(0, -0.22, 0);
+    character.scale.setScalar(0.84);
+  } else if (width > 1200) {
+    character.position.set(0, -0.24, 0);
+    character.scale.setScalar(0.82);
+  } else if (width > 1024) {
+    character.position.set(0, -0.28, 0);
+    character.scale.setScalar(0.8);
+  } else if (width > 768) {
+    character.position.set(0, -0.12, 0);
+    character.scale.setScalar(0.8);
+  } else if (width > 600) {
+    character.position.set(0, 0.02, 0);
+    character.scale.setScalar(0.8);
+  } else {
+    character.position.set(0, 0.12, 0);
+    character.scale.setScalar(0.78);
+  }
+};
+
 const setCharacter = (
   renderer: THREE.WebGLRenderer,
   scene: THREE.Scene,
@@ -110,22 +135,7 @@ const setCharacter = (
             setAllTimeline();
             character.getObjectByName("footR")!.position.y = 3.36;
             character.getObjectByName("footL")!.position.y = 3.36;
-
-            // Responsive offsets keep the hero framing balanced on laptop and mobile.
-            const width = window.innerWidth;
-            if (width > 1280) {
-              character.position.set(0, -0.42, 0);
-              character.scale.setScalar(0.8);
-            } else if (width > 1024) {
-              character.position.set(0, -0.48, 0);
-              character.scale.setScalar(0.78);
-            } else if (width > 600) {
-              character.position.set(0, -0.72, 0);
-              character.scale.setScalar(0.72);
-            } else {
-              character.position.set(0, -0.82, 0);
-              character.scale.setScalar(0.7);
-            }
+            applyCharacterLayout(character);
 
             // Monitor scale is handled by GsapScroll.ts animations
             succeed(gltf);
