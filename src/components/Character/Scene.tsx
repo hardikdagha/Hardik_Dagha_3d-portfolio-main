@@ -44,6 +44,23 @@ const Scene = () => {
         const ratio = window.devicePixelRatio || 1;
         return Math.min(ratio, window.innerWidth <= 900 ? 1 : 1.35);
       };
+      const applyCameraFraming = (camera: THREE.PerspectiveCamera) => {
+        const width = window.innerWidth;
+
+        if (width > 1280) {
+          camera.position.set(0, 12.9, 27.8);
+          camera.zoom = 0.94;
+        } else if (width > 1024) {
+          camera.position.set(0, 13, 26.8);
+          camera.zoom = 0.97;
+        } else if (width > 600) {
+          camera.position.set(0, 13.1, 24.8);
+          camera.zoom = 1.06;
+        } else {
+          camera.position.set(0, 13.15, 24.4);
+          camera.zoom = 1.08;
+        }
+      };
 
       const renderer = new THREE.WebGLRenderer({
         alpha: true,
@@ -62,9 +79,7 @@ const Scene = () => {
       scene.background = null;
 
       const camera = new THREE.PerspectiveCamera(14.5, aspect, 0.1, 1000);
-      camera.position.z = 10;
-      camera.position.set(0, 13.1, 24.7);
-      camera.zoom = 1.1;
+      applyCameraFraming(camera);
       camera.updateProjectionMatrix();
 
       let headBone: THREE.Object3D | null = null;
@@ -116,6 +131,7 @@ const Scene = () => {
         renderer.setPixelRatio(getPreferredPixelRatio());
         renderer.setSize(width, height, false);
         camera.aspect = width / height;
+        applyCameraFraming(camera);
         camera.updateProjectionMatrix();
       };
 
