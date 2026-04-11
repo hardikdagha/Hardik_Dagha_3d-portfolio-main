@@ -43,7 +43,7 @@
   height: 560px;
   margin-left: 140px;
   position: relative;
-  display: none;
+  display: flex;
 }
 
 .what-content {

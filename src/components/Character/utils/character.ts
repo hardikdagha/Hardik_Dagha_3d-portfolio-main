@@ -113,8 +113,8 @@ const setCharacter = (
 
             // Keep the hero framing centered and avoid oversized close-up on desktop.
             if (window.innerWidth > 1024) {
-              character.position.set(-2.2, -0.4, 0);
-              character.scale.setScalar(0.9);
+              character.position.set(-0.2, -0.55, 0);
+              character.scale.setScalar(0.78);
             }
 
             // Monitor scale is handled by GsapScroll.ts animations
