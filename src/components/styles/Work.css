@@ -53,17 +53,20 @@
   flex-shrink: 0;
   box-sizing: border-box;
   padding: 56px 0;
+  overflow: hidden;
 }
 
 .carousel-content {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 60px;
   width: 100%;
 }
 
 .carousel-info {
-  flex: 1;
+  flex: 1 1 56%;
+  max-width: 56%;
   display: flex;
   gap: 30px;
   align-items: flex-start;
@@ -133,11 +136,13 @@
 }
 
 .carousel-image-wrapper {
-  flex: 1;
+  flex: 0 1 460px;
+  max-width: 460px;
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 0;
+  margin-left: auto;
 }
 
 .carousel-arrow {
@@ -213,7 +218,7 @@
 .work-image-in {
   display: block;
   position: relative;
-  width: min(100%, 520px);
+  width: min(100%, 460px);
   min-height: 360px;
   border-radius: 28px;
   border: 1px solid var(--borderColor);
@@ -327,9 +332,29 @@
   gap: 10px;
   font-size: 15px;
   line-height: 1.7;
+  min-width: 0;
+}
+
+.work-visual-body li {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 @media only screen and (max-width: 1600px) {
+  .carousel-content {
+    gap: 48px;
+  }
+
+  .carousel-image-wrapper {
+    flex-basis: 430px;
+    max-width: 430px;
+  }
+
+  .work-image-in {
+    width: min(100%, 430px);
+  }
+
   .carousel-arrow-left {
     left: -60px;
   }
@@ -356,6 +381,21 @@
     gap: 40px;
   }
 
+  .carousel-info {
+    flex-basis: 58%;
+    max-width: 58%;
+  }
+
+  .carousel-image-wrapper {
+    flex-basis: 390px;
+    max-width: 390px;
+  }
+
+  .work-image-in {
+    width: min(100%, 390px);
+    min-height: 340px;
+  }
+
   .carousel-arrow-left {
     left: 10px;
   }
@@ -374,12 +414,14 @@
 
   .carousel-info {
     width: 100%;
+    max-width: 100%;
     flex-direction: column;
     gap: 16px;
   }
 
   .carousel-image-wrapper {
     width: 100%;
+    max-width: 100%;
   }
 
   .carousel-arrow {
@@ -512,5 +554,11 @@
   .work-visual-body ul {
     font-size: 14px;
     line-height: 1.6;
+    padding-left: 16px;
+  }
+
+  .work-visual-body li {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 }
