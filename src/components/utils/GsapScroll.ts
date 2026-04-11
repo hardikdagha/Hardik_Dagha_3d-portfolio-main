@@ -15,6 +15,11 @@ export function setCharTimeline(
   ScrollTrigger.getById("char-about")?.kill();
   ScrollTrigger.getById("char-what")?.kill();
 
+  // Always restore base hero state before creating new timelines.
+  gsap.set(".character-container", { opacity: 1 });
+  gsap.set(".character-model", { x: "0%", y: "0%", pointerEvents: "inherit" });
+  gsap.set(".landing-container", { opacity: 1, y: "0%" });
+
   const tl1 = gsap.timeline({
     scrollTrigger: {
       id: "char-landing",
@@ -90,7 +95,6 @@ export function setCharTimeline(
         .to(".about-section", { y: "18%", duration: 1 }, 0)
         .to(".about-section", { opacity: 0, duration: 1 }, 0.35)
         .to(character.rotation, { y: 0.55, x: 0.06, duration: 1 }, 0)
-        .fromTo(".character-container", { opacity: 1 }, { opacity: 0.12, duration: 1 }, 0)
         .fromTo(
           ".character-rim",
           { opacity: 1, scaleX: 1.4 },
@@ -99,7 +103,7 @@ export function setCharTimeline(
         );
 
       tl3
-        .fromTo(".character-container", { opacity: 0.12 }, { opacity: 0, duration: 1 }, 0)
+        .to(".character-container", { opacity: 0, duration: 1 }, 0)
         .fromTo(
           ".character-model",
           { y: "0%" },
