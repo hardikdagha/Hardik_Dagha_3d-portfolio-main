@@ -334,6 +334,30 @@ h2.landing-info-h2 {
     top: 15.5%;
   }
 
+  .landing-intro h2 {
+    font-size: 14px;
+  }
+
+  .landing-intro h1 {
+    font-size: clamp(48px, 7.2vw, 102px);
+  }
+
+  .landing-copy {
+    font-size: clamp(15px, 1.25vw, 19px);
+    max-width: 26rem;
+  }
+
+  .landing-highlights {
+    gap: 10px;
+    margin-top: 24px;
+    max-width: 34rem;
+  }
+
+  .landing-highlights span {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
   .landing-info {
     bottom: 104px;
   }
