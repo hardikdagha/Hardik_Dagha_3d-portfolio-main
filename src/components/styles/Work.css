@@ -38,6 +38,8 @@
 .carousel-track-container {
   overflow: hidden;
   width: 100%;
+  padding: 0 clamp(14px, 2.2vw, 32px);
+  box-sizing: border-box;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -58,11 +60,11 @@
 
 .carousel-content {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(340px, 430px);
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
   align-items: center;
-  gap: clamp(32px, 4vw, 60px);
+  gap: clamp(24px, 3vw, 42px);
   width: 100%;
-  padding: 0 28px 0 18px;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -138,12 +140,12 @@
 
 .carousel-image-wrapper {
   width: 100%;
-  max-width: 430px;
+  max-width: 360px;
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 0;
-  justify-self: end;
+  justify-self: center;
 }
 
 .carousel-arrow {
@@ -347,8 +349,7 @@
 
 @media only screen and (max-width: 1600px) {
   .carousel-content {
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 410px);
-    padding-right: 18px;
+    grid-template-columns: minmax(0, 1fr) minmax(270px, 340px);
   }
 
   .carousel-arrow-left {
@@ -374,17 +375,16 @@
   }
 
   .carousel-content {
-    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
-    gap: 32px;
-    padding-right: 10px;
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 320px);
+    gap: 24px;
   }
 
   .carousel-image-wrapper {
-    max-width: 380px;
+    max-width: 320px;
   }
 
   .work-image-in {
-    min-height: 340px;
+    min-height: 320px;
   }
 
   .carousel-arrow-left {
@@ -497,6 +497,10 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .carousel-track-container {
+    padding: 0 16px;
+  }
+
   .work-section h2 {
     font-size: 34px;
     margin-bottom: 18px;
@@ -543,6 +547,7 @@
 
   .work-visual-body h5 {
     font-size: 22px;
+    overflow-wrap: anywhere;
   }
 
   .work-visual-body ul {
