@@ -42,30 +42,39 @@ const Scene = () => {
       const scene = sceneRef.current;
       const getPreferredPixelRatio = () => {
         const ratio = window.devicePixelRatio || 1;
-        return Math.min(ratio, window.innerWidth <= 900 ? 1 : 1.35);
+        if (window.innerWidth <= 600) {
+          return Math.min(ratio, 1.2);
+        }
+        if (window.innerWidth <= 900) {
+          return Math.min(ratio, 1.15);
+        }
+        return Math.min(ratio, 1.35);
       };
       const applyCameraFraming = (camera: THREE.PerspectiveCamera) => {
         const width = window.innerWidth;
 
-        if (width > 1280) {
-          camera.position.set(0, 12.9, 27.8);
-          camera.zoom = 0.94;
+        if (width > 1400) {
+          camera.position.set(0, 13.1, 25.6);
+          camera.zoom = 1;
+        } else if (width > 1200) {
+          camera.position.set(0, 13.1, 25.2);
+          camera.zoom = 1.02;
         } else if (width > 1024) {
-          camera.position.set(0, 13, 26.8);
-          camera.zoom = 0.97;
+          camera.position.set(0, 13.1, 24.9);
+          camera.zoom = 1.03;
         } else if (width > 600) {
-          camera.position.set(0, 13.1, 24.8);
-          camera.zoom = 1.06;
+          camera.position.set(0, 13.15, 24.7);
+          camera.zoom = 1.05;
         } else {
-          camera.position.set(0, 13.15, 24.4);
-          camera.zoom = 1.08;
+          camera.position.set(0, 13.2, 24.75);
+          camera.zoom = 1.05;
         }
       };
 
       const renderer = new THREE.WebGLRenderer({
         alpha: true,
         premultipliedAlpha: false,
-        antialias: window.innerWidth > 900,
+        antialias: window.innerWidth > 1024,
         powerPreference: "high-performance",
       });
       renderer.setClearColor(0x000000, 0);

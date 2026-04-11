@@ -111,9 +111,21 @@ const setCharacter = (
             character.getObjectByName("footR")!.position.y = 3.36;
             character.getObjectByName("footL")!.position.y = 3.36;
 
-            // Keep the character in a neutral rig transform.
-            character.position.set(0, 0, 0);
-            character.scale.setScalar(1);
+            // Responsive offsets keep the hero framing balanced on laptop and mobile.
+            const width = window.innerWidth;
+            if (width > 1280) {
+              character.position.set(0, -0.42, 0);
+              character.scale.setScalar(0.8);
+            } else if (width > 1024) {
+              character.position.set(0, -0.48, 0);
+              character.scale.setScalar(0.78);
+            } else if (width > 600) {
+              character.position.set(0, -0.72, 0);
+              character.scale.setScalar(0.72);
+            } else {
+              character.position.set(0, -0.82, 0);
+              character.scale.setScalar(0.7);
+            }
 
             // Monitor scale is handled by GsapScroll.ts animations
             succeed(gltf);

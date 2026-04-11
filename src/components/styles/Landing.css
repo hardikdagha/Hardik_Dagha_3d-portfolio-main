@@ -377,9 +377,9 @@ h2.landing-info-h2 {
     bottom: auto;
     transform: none;
     width: 100%;
-    height: clamp(320px, 46vh, 500px);
+    height: clamp(260px, 38vh, 420px);
     max-height: none;
-    margin-top: 6px;
+    margin-top: 16px;
   }
 
   .character-model::before {
@@ -394,7 +394,7 @@ h2.landing-info-h2 {
 
 @media screen and (max-width: 900px) {
   .landing-section {
-    padding-bottom: 40px;
+    padding-bottom: 56px;
   }
 
   .landing-container {
@@ -408,8 +408,8 @@ h2.landing-info-h2 {
   }
 
   .character-model {
-    height: clamp(280px, 40vh, 420px);
-    margin-top: 12px;
+    height: clamp(220px, 32vh, 320px);
+    margin-top: 20px;
   }
 }
 
@@ -460,8 +460,8 @@ h2.landing-info-h2 {
   }
 
   .character-model {
-    height: clamp(220px, 34vh, 320px);
-    margin-top: 12px;
+    height: clamp(180px, 26vh, 240px);
+    margin-top: 24px;
   }
 
   .character-hover {
