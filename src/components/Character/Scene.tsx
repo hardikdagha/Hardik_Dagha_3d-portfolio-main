@@ -40,17 +40,21 @@ const Scene = () => {
       const container = getContainerSize();
       const aspect = container.width / container.height;
       const scene = sceneRef.current;
+      const getPreferredPixelRatio = () => {
+        const ratio = window.devicePixelRatio || 1;
+        return Math.min(ratio, window.innerWidth <= 900 ? 1 : 1.35);
+      };
 
       const renderer = new THREE.WebGLRenderer({
         alpha: true,
         premultipliedAlpha: false,
-        antialias: true,
+        antialias: window.innerWidth > 900,
         powerPreference: "high-performance",
       });
       renderer.setClearColor(0x000000, 0);
       renderer.setClearAlpha(0);
       renderer.setSize(container.width, container.height, false);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+      renderer.setPixelRatio(getPreferredPixelRatio());
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1;
       renderer.domElement.style.backgroundColor = "transparent";
@@ -109,7 +113,7 @@ const Scene = () => {
         }
 
         const { width, height } = getContainerSize();
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+        renderer.setPixelRatio(getPreferredPixelRatio());
         renderer.setSize(width, height, false);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();

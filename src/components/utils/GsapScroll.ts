@@ -14,42 +14,50 @@ export function setCharTimeline(
   ScrollTrigger.getById("char-landing")?.kill();
   ScrollTrigger.getById("char-about")?.kill();
   ScrollTrigger.getById("char-what")?.kill();
+  const isDesktop = window.innerWidth > 1024;
 
   // Always restore base hero state before creating new timelines.
   gsap.set(".character-container", { opacity: 1 });
   gsap.set(".character-model", { x: "0%", y: "0%", pointerEvents: "inherit" });
   gsap.set(".landing-container", { opacity: 1, y: "0%" });
 
-  const tl1 = gsap.timeline({
-    scrollTrigger: {
-      id: "char-landing",
-      trigger: ".landing-section",
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-      invalidateOnRefresh: true,
-    },
-  });
-  const tl2 = gsap.timeline({
-    scrollTrigger: {
-      id: "char-about",
-      trigger: ".about-section",
-      start: "center 55%",
-      end: "bottom top",
-      scrub: true,
-      invalidateOnRefresh: true,
-    },
-  });
-  const tl3 = gsap.timeline({
-    scrollTrigger: {
-      id: "char-what",
-      trigger: ".whatIDO",
-      start: "top top",
-      end: "bottom top",
-      scrub: true,
-      invalidateOnRefresh: true,
-    },
-  });
+  let tl1: gsap.core.Timeline | null = null;
+  let tl2: gsap.core.Timeline | null = null;
+  let tl3: gsap.core.Timeline | null = null;
+
+  if (isDesktop) {
+    tl1 = gsap.timeline({
+      scrollTrigger: {
+        id: "char-landing",
+        trigger: ".landing-section",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    });
+    tl2 = gsap.timeline({
+      scrollTrigger: {
+        id: "char-about",
+        trigger: ".about-section",
+        start: "center 55%",
+        end: "bottom top",
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    });
+    tl3 = gsap.timeline({
+      scrollTrigger: {
+        id: "char-what",
+        trigger: ".whatIDO",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        invalidateOnRefresh: true,
+      },
+    });
+  }
+
   for (const object of character?.children ?? []) {
     if (object.name === "Plane004") {
       for (const child of object.children) {
@@ -73,17 +81,22 @@ export function setCharTimeline(
       material.transparent = true;
       material.opacity = 0;
       material.emissive.set("#B0F5EA");
-      gsap.killTweensOf(material);
-      gsap.timeline({ repeat: -1, repeatRefresh: true }).to(material, {
-        emissiveIntensity: () => Math.random() * 8,
-        duration: () => Math.random() * 0.6,
-        delay: () => Math.random() * 0.1,
-      });
+
+      if (isDesktop) {
+        gsap.killTweensOf(material);
+        gsap.timeline({ repeat: -1, repeatRefresh: true }).to(material, {
+          emissiveIntensity: () => Math.random() * 8,
+          duration: () => Math.random() * 0.6,
+          delay: () => Math.random() * 0.1,
+        });
+      } else {
+        material.emissiveIntensity = 0;
+      }
     }
   }
 
-  if (window.innerWidth > 1024) {
-    if (character) {
+  if (isDesktop) {
+    if (character && tl1 && tl2 && tl3) {
       tl1
         .fromTo(character.rotation, { y: 0 }, { y: 0.35, duration: 1 }, 0)
         .to(camera.position, { z: 23.8, duration: 1 }, 0)
@@ -113,8 +126,6 @@ export function setCharTimeline(
         .fromTo(".whatIDO", { y: 0 }, { y: "8%", duration: 1 }, 0)
         .to(character.rotation, { x: -0.04, duration: 1 }, 0);
     }
-  } else {
-    gsap.set(".character-container", { opacity: 1 });
   }
 }
 

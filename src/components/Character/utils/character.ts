@@ -111,6 +111,21 @@ const setCharacter = (
             character.getObjectByName("footR")!.position.y = 3.36;
             character.getObjectByName("footL")!.position.y = 3.36;
 
+            const width = window.innerWidth;
+            if (width > 1280) {
+              character.position.set(-0.08, -1.18, 0);
+              character.scale.setScalar(0.58);
+            } else if (width > 1024) {
+              character.position.set(-0.05, -1.24, 0);
+              character.scale.setScalar(0.56);
+            } else if (width > 600) {
+              character.position.set(0, -1.28, 0);
+              character.scale.setScalar(0.57);
+            } else {
+              character.position.set(0, -1.36, 0);
+              character.scale.setScalar(0.54);
+            }
+
             // Monitor scale is handled by GsapScroll.ts animations
             succeed(gltf);
           } catch (error) {
