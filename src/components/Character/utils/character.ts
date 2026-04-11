@@ -21,11 +21,11 @@ export const applyCharacterLayout = (
     character.position.set(0, -0.12, 0);
     character.scale.setScalar(0.8);
   } else if (width > 600) {
-    character.position.set(0, 0.02, 0);
-    character.scale.setScalar(0.8);
+    character.position.set(0, 0.24, 0);
+    character.scale.setScalar(0.84);
   } else {
-    character.position.set(0, 0.12, 0);
-    character.scale.setScalar(0.78);
+    character.position.set(0, 0.42, 0);
+    character.scale.setScalar(0.84);
   }
 };
 
